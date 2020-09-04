@@ -15,3 +15,11 @@ export const addBoard = (title) => {
     payload: { title, id },
   };
 };
+
+
+export const deleteBoard = (id) =>{
+  return {
+    type: CONSTANTS.DELETE_BOARD,
+    payload:id,
+  }
+}

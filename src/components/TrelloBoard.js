@@ -4,23 +4,28 @@ import { connect } from "react-redux";
 import TrelloCreate from "./TrelloCreate";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { sort, setActiveBoard } from "../actions";
-import { Link } from "react-router-dom";
-import Icon from "@material-ui/core/Icon";
-
+import { sort, deleteBoard } from "../actions";
+import Button from './public/TrelloButton'
+import'../asset/board.scss'
 const ListsContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction:row;
 `;
 
 // TODO: Fix performance issue
 
+
 class TrelloBoard extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { boardID: props.match.params.boardID };
+  }
+
   componentDidMount() {
     // set active trello board here
     const { boardID } = this.props.match.params;
-
-    this.props.dispatch(setActiveBoard(boardID));
+    console.log(boardID);
+    // this.props.dispatch(setActiveBoard(boardID));
   }
 
   onDragEnd = (result) => {
@@ -42,9 +47,20 @@ class TrelloBoard extends PureComponent {
     );
   };
 
+  deleteBoardHandler = (boardID) => {
+    return  () => {
+      console.log(boardID);
+      this.props.dispatch(deleteBoard(boardID));
+      this.props.history.push('/')
+    };
+  };
+
+
   render() {
     const { lists, cards, match, boards } = this.props;
-    const { boardID } = match.params;
+    const { boardID } = this.state;
+    console.log(boardID);
+    
     const board = boards[boardID];
     if (!board) {
       return <p>Board not found</p>;
@@ -52,39 +68,58 @@ class TrelloBoard extends PureComponent {
     const listOrder = board.lists;
 
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Link to="/">
-          Home
-        </Link>
-        <h2>{board.title}</h2>
-        <Droppable droppableId="all-lists" direction="horizontal" type="list">
-          {(provided) => (
-            <ListsContainer
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {listOrder.map((listID, index) => {
-                const list = lists[listID];
-                if (list) {
-                  const listCards = list.cards.map((cardID) => cards[cardID]);
+      <>
+        <div className="Board__page">
+          <div className="Board_topbar">
+            <h2 className="Board__title">{board.title}</h2>
+            <div className="Board__delete">
+              <Button
+                color="secondary"
+                onClick={this.deleteBoardHandler(boardID)}
+              >
+                delete board
+              </Button>
+            </div>
+          </div>
+          <div className="Board__content">
+            <DragDropContext onDragEnd={this.onDragEnd}>
+              <Droppable
+                droppableId="all-lists"
+                direction="horizontal"
+                type="list"
+              >
+                {(provided) => (
+                  <ListsContainer
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {listOrder.map((listID, index) => {
+                      const list = lists[listID];
+                      if (list) {
+                        const listCards = list.cards.map(
+                          (cardID) => cards[cardID]
+                        );
 
-                  return (
-                    <TrelloList
-                      listID={list.id}
-                      key={list.id}
-                      title={list.title}
-                      cards={listCards}
-                      index={index}
-                    />
-                  );
-                }
-              })}
-              {provided.placeholder}
-              <TrelloCreate list />
-            </ListsContainer>
-          )}
-        </Droppable>
-      </DragDropContext>
+                        return (
+                          <TrelloList
+                            listID={list.id}
+                            key={list.id}
+                            title={list.title}
+                            cards={listCards}
+                            index={index}
+                          />
+                        );
+                      }
+                    })}
+                    {provided.placeholder}
+                      <TrelloCreate list />
+                  </ListsContainer>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </div>
+        </div>
+      </>
     );
   }
 }

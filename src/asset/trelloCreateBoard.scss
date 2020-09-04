@@ -1,0 +1,13 @@
+.modalInside__cotainer{
+    display: flex;
+    flex-direction: column;
+
+
+    .modalInside__input{
+        margin-bottom: 20px;
+    }
+
+    .modalInside__button{
+        padding-left: 5px;
+    }
+}

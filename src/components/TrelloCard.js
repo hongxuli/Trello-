@@ -7,7 +7,7 @@ import styled from "styled-components";
 import Icon from "@material-ui/core/Icon";
 import { connect } from "react-redux";
 import TrelloForm from "./TrelloForm";
-import TrelloButton from "./TrelloButton";
+import TrelloButton from "./public/TrelloButton";
 import { editCard, deleteCard } from "../actions";
 
 

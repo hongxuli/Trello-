@@ -53,6 +53,14 @@ const boardsReducer = (state=initialState,action) =>{
         return { ...state, [newID]: newBoard };
       }
 
+
+      case CONSTANTS.DELETE_BOARD:{
+        const id  = action.payload;
+        const newState = state;
+        delete newState[id];
+        return {...newState}
+      }
+
       default:
         return state;
     }

@@ -1,34 +1,13 @@
 import React from "react";
-import styled from "styled-components";
+import '../asset/thumbnail.scss';
+import classNames from 'classnames';
 
-const Thumbnail = styled.div`
-  height: 100px;
-  width: 20vw;
-  background: #71797d;
-  padding: 10px;
-  margin: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 3px;
-  box-shadow: 0 2px 4px grey;
-  @media (max-width: 479px) {
-    width: 40vw;
-  }
-`;
+const BoardThumbnail = ({ title, CreateBoard=false }) => {
 
-const Title = styled.h4`
-  color: white;
-  text-decoration: none;
-`;
-
-const BoardThumbnail = ({ title }) => {
-  console.log(title);
   return (
-    <Thumbnail>
-      <Title>{title}</Title>
-    </Thumbnail>
+    <div className={classNames(CreateBoard? 'Board__thumbnail__create':'Board__thumbnail__normal')}>
+      <h3>{title}</h3>
+    </div>
   );
 };
 

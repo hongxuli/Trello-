@@ -1,0 +1,15 @@
+.TrelloForm__container{
+    display: flex;
+    flex-direction: column;
+
+    .TrelloForm__cardContainer{
+        
+    }
+
+    .TrelloForm__buttonContainer{
+         margin-top: 8px;
+        display: flex;
+        align-items: center;
+
+    }
+}

@@ -1,0 +1,47 @@
+@mixin Board__thumbnail__base ($background-color){
+  height: 100px;
+  background: $background-color;
+  padding: 10px;
+  margin: 8px;
+  cursor: pointer;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px grey;
+  &:hover{
+      filter: brightness(0.9);
+  }
+} 
+ 
+ 
+ 
+ .Board__thumbnail__normal{
+     @include Board__thumbnail__base(#4182a2);
+
+  h3{
+  margin: 0;
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+
+ }
+
+  
+ .Board__thumbnail__create{
+    @include Board__thumbnail__base(#f1f3f6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h3{
+    text-align: center;
+    margin: 0;
+    color: #9ea4af;
+    mix-blend-mode: difference;
+    text-decoration: none;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+ }

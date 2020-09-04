@@ -1,10 +1,9 @@
 import {createStore, applyMiddleware} from 'redux'
 import rootReducer from '../reducers';
 import thunk from 'redux-thunk';
-import {CONSTANTS,sort} from '../actions';
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
+import {composeWithDevTools} from 'redux-devtools-extension'
 
 
 
@@ -31,11 +30,14 @@ const logger = (store) => (next) => (action) => {
 }
 
 
-export default ()=>{
-  let store = createStore(
-    persistedReducer,
-    applyMiddleware(thunk,logger)
-  )
+export default ()=>{  
+  let store =
+    process.env.NODE_ENV == "development"
+      ? createStore(
+          persistedReducer,
+          composeWithDevTools(applyMiddleware(thunk, logger))
+        )
+      : createStore(persistedReducer, applyMiddleware(thunk));
   let persistor = persistStore(store);
   return {store, persistor}
 }

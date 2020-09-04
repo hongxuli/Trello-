@@ -18,10 +18,9 @@ const ListContainer = styled.div`
 `;
 
 const StyledInput = styled.input`
+  width: 100%;
   border: none;
-  outline: none;
-  // bordercolor: black;
-  // outline-color: black;
+  outline-color: blue;
   border-radius: 3px;
   margin-bottom: 3px;
   padding: 5px;
@@ -29,7 +28,7 @@ const StyledInput = styled.input`
 
 const TitleContainer = styled.div`
   width: 100%;
-  height: 65px;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -101,17 +100,16 @@ const TrelloList = ({ title, cards, listID, index, dispatch }) => {
             {(provided) => (
               <div>
                 <div>
+                  {isEditing ? (
+                    renderEditInput()
+                  ) : (
                     <TitleContainer onClick={() => setIsEditing(true)}>
-                      {isEditing ? (
-                        renderEditInput()
-                      ) : (
-                        <ListTitle>{listTitle}</ListTitle>
-                      )}
-                      {/* <ListTitle>{listTitle}</ListTitle> */}
+                      <ListTitle>{listTitle}</ListTitle>
                       <DeleteButton onClick={handleDeleteList}>
                         delete
                       </DeleteButton>
                     </TitleContainer>
+                  )}
                 </div>
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   {cards.map((card, index) => (

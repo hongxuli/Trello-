@@ -1,0 +1,37 @@
+@import 'utli';
+.Board__page{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .Board_topbar{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    overflow: hidden;
+
+    .Board__title{
+    margin: 0;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    color: $text-dark-color;
+}   
+    .Board__delete{
+
+    }
+
+
+
+}
+
+.Board__content{
+    flex: 1;
+    overflow-y: hidden;
+    height: 100%;
+
+}
+
+
+
+    
+}
+
