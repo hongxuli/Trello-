@@ -1,9 +1,9 @@
 import { CONSTANTS } from "../actions";
 import uuid from "uuidv4";
 
-export const addList = (title) => {
+export const addList = (title, boardID) => {
   return (dispatch, getState) => {
-    const boardID = getState().activeBoard;
+    // const boardID = getState().activeBoard;
     const id = uuid();
     dispatch({
       type: CONSTANTS.ADD_LIST,
@@ -18,11 +18,12 @@ export const sort = (
   droppableIndexStart,
   droppableIndexEnd,
   draggableId,
-  type
+  type,
+  boardID
 ) => {
   return (dispatch, getState) => {
-    console.log(getState());
-    const boardID = getState().activeBoard;
+    // console.log(getState());
+    // const boardID = getState().activeBoard;
     dispatch({
       type: CONSTANTS.DRAG_HAPPENED,
       payload: {

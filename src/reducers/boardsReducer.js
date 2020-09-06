@@ -11,9 +11,14 @@ const initialState = {
 const boardsReducer = (state=initialState,action) =>{
     switch (action.type) {
       case CONSTANTS.DRAG_HAPPENED: {
-        const { droppableIndexEnd, droppableIndexStart, type } = action.payload;
+        const {
+          droppableIndexEnd,
+          droppableIndexStart,
+          type,
+          boardId,
+        } = action.payload;
         // test
-        const boardId = "board-0";
+        // const boardId = "board-0";
         const board = state[boardId];
         const lists = board.lists;
         if (type === "list") {

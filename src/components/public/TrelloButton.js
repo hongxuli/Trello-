@@ -17,4 +17,4 @@ const TrelloButton = ({ children, onClick, color='primary'}) => {
   );
 };
 
-export default TrelloButton;
+export default React.memo(TrelloButton);

@@ -23,8 +23,9 @@ class TrelloBoard extends PureComponent {
 
   componentDidMount() {
     // set active trello board here
+    console.log(this.props.match);
+    
     const { boardID } = this.props.match.params;
-    console.log(boardID);
     // this.props.dispatch(setActiveBoard(boardID));
   }
 
@@ -42,7 +43,8 @@ class TrelloBoard extends PureComponent {
         source.index,
         destination.index,
         draggableId,
-        type
+        type,
+        this.state.boardID
       )
     );
   };
@@ -112,7 +114,7 @@ class TrelloBoard extends PureComponent {
                       }
                     })}
                     {provided.placeholder}
-                      <TrelloCreate list />
+                      <TrelloCreate list={lists} boardID={boardID} />
                   </ListsContainer>
                 )}
               </Droppable>
