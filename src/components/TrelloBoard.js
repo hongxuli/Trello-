@@ -15,7 +15,7 @@ const ListsContainer = styled.div`
 // TODO: Fix performance issue
 
 
-class TrelloBoard extends React.PureComponent {
+class TrelloBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = { boardID: props.match.params.boardID };
@@ -30,8 +30,6 @@ class TrelloBoard extends React.PureComponent {
   onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result;
     const {boardID} = this.state
-    console.log(boardID);
-    
     if (!destination) {
       return;
     }
@@ -50,7 +48,6 @@ class TrelloBoard extends React.PureComponent {
 
   deleteBoardHandler = (boardID) => {
     return  () => {
-      console.log(boardID);
       this.props.dispatch(deleteBoard(boardID));
       this.props.history.push('/')
     };
@@ -59,10 +56,6 @@ class TrelloBoard extends React.PureComponent {
 
   render() {
     const { lists, cards, match, boards } = this.props;
-    console.log(cards);
-    console.log(lists);
-  
-  
     const { boardID } = this.state;    
     const board = boards[boardID];
     if (!board) {

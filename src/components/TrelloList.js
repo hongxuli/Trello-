@@ -53,9 +53,6 @@ const ListTitle = styled.h4`
 `;
 
 const TrelloList = ({ title, cards, listID, index, dispatch }) => {
-  console.log(cards);
-  
-  
   const [isEditing, setIsEditing] = useState(false);
   const [listTitle, setListTitle] = useState(title);
 
