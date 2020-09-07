@@ -1,11 +1,11 @@
 import { CONSTANTS } from "../actions";
 
 const initialState = {
-  "card-0": {
-    text: "test",
-    id: 'card-0',
-    list: "list-0"
-  },
+  // "card-0": {
+  //   text: "test",
+  //   id: 'card-0',
+  //   list: "list-0"
+  // },
 };
 
 const cardsReducer = (state = initialState, action) => {
@@ -16,7 +16,7 @@ const cardsReducer = (state = initialState, action) => {
       const newCard = {
         text,
         id: `card-${id}`,
-        list: listID
+        list: listID,
       };
 
       return { ...state, [`card-${id}`]: newCard };
@@ -29,11 +29,31 @@ const cardsReducer = (state = initialState, action) => {
     }
 
     case CONSTANTS.DELETE_CARD: {
-      const { id } = action.payload;
-      const newState = state;
-      delete newState[id];
+      const { cardID } = action.payload;
+      let newState = {...state};
+      delete newState[cardID];
       return newState;
     }
+
+    case CONSTANTS.DELETE_BOARD: {
+      const { cardIDs } = action.payload;
+      let newState = {...state};
+      cardIDs.forEach((cardID) => {
+        delete newState[cardID];
+      });
+      return newState;
+    }
+
+    case CONSTANTS.DELETE_LIST:{
+      const {cardIDs}  = action.payload
+      let newState = {...state}
+      cardIDs.forEach(cardID => {
+        delete newState[cardID]
+      });
+
+      return newState
+    }
+
     default:
       return state;
   }

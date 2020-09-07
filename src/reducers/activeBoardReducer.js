@@ -8,6 +8,10 @@ const activeBoardReducer = (state = initialState, action) => {
       return action.payload;
     }
 
+    case CONSTANTS.DELETE_BOARD:{
+      return null
+    }
+
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from "react-redux";
-import TrelloForm from "./TrelloForm";
-import TrelloOpenForm from "./TrelloOpenForm";
+import TrelloForm from "./public/TrelloForm";
+import TrelloOpenForm from "./public/TrelloOpenForm";
 import { addList, addCard } from "../actions";
 import TrelloButton from "./public/TrelloButton";
 import "../asset/trelloCreate.scss";
@@ -35,14 +35,14 @@ class TrelloCreate extends React.Component {
   };
 
   handleAddList = () => {
-    const { dispatch } = this.props;
+    const { dispatch, boardID } = this.props;
     const { text } = this.state;
 
     if (text) {
       this.setState({
         text: ''
       })
-      dispatch(addList(text));
+      dispatch(addList(text, boardID));
     }
     return;
   };

@@ -1,12 +1,12 @@
 import { CONSTANTS } from "../actions";
 
 const initialState = {
-  "list-0": {
-    id: "list-0",
-    cards: ["card-0"],
-    title: "myList",
-    board: "board-0",
-  },
+  // "list-0": {
+  //   id: "list-0",
+  //   cards: ["card-0"],
+  //   title: "myList",
+  //   board: "board-0",
+  // },
 };
 
 const listsReducer = (state = initialState, action) => {
@@ -73,14 +73,14 @@ const listsReducer = (state = initialState, action) => {
       }
       return state;
 
-    case CONSTANTS.DELETE_CARD: {
-      const { listID, id } = action.payload;
+    // case CONSTANTS.DELETE_CARD: {
+    //   const { listID, id } = action.payload;
 
-      const list = state[listID];
-      const newCards = list.cards.filter((cardID) => cardID !== id);
+    //   const list = state[listID];
+    //   const newCards = list.cards.filter((cardID) => cardID !== id);
 
-      return { ...state, [listID]: { ...list, cards: newCards } };
-    }
+    //   return { ...state, [listID]: { ...list, cards: newCards } };
+    // }
 
     case CONSTANTS.EDIT_LIST_TITLE: {
       const { listID, newTitle } = action.payload;
@@ -92,9 +92,34 @@ const listsReducer = (state = initialState, action) => {
 
     case CONSTANTS.DELETE_LIST: {
       const { listID } = action.payload;
-      const newState = state;
+      const newState = {...state};
       delete newState[listID];
-      return newState;
+
+      return newState ;
+    }
+
+    case CONSTANTS.DELETE_BOARD: {
+      const { listIDs } = action.payload;
+      let newState = {...state};
+      listIDs.forEach(listID => {
+        delete newState[listID];
+      });
+      return newState ;
+    }
+
+    case CONSTANTS.DELETE_CARD:{
+      const {listID,cardID} = action.payload
+      const list = state[listID];
+      let targetList = list.cards;
+      const index = targetList.indexOf(cardID);
+      if(index>-1){
+        const cards = targetList.splice(index,1)
+        return { ...state, [listID]:{...list, cards} };
+      }else{
+        return state;
+      }
+  
+
     }
 
     default:

@@ -16,6 +16,12 @@ const ModalInside = ({...props}) => {
       dispatch(addBoard(InputText));
       modalHandlerClose()
   }
+
+  const keyBoardHandler = (e) =>{
+    if(e.keyCode && e.keyCode ===13){
+      createHandler()
+    }
+  }
   return (
     <div className="modalInside__cotainer">
       <div className="modalInside__input">
@@ -31,8 +37,10 @@ const ModalInside = ({...props}) => {
           InputLabelProps={{
             shrink: true,
           }}
+          autoFocus={true}
           variant="outlined"
           onInput={inputHandler}
+          onKeyUp={(e) => keyBoardHandler(e)}
         />
       </div>
       <div className="modalInside__button">

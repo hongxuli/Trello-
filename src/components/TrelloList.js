@@ -53,6 +53,9 @@ const ListTitle = styled.h4`
 `;
 
 const TrelloList = ({ title, cards, listID, index, dispatch }) => {
+  console.log(cards);
+  
+  
   const [isEditing, setIsEditing] = useState(false);
   const [listTitle, setListTitle] = useState(title);
 
@@ -114,7 +117,7 @@ const TrelloList = ({ title, cards, listID, index, dispatch }) => {
                     </TitleContainer>
                 </div>
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {cards.map((card, index) => (
+                  {cards ? cards.map((card, index) => (
                     <TrelloCard
                       key={card.id}
                       text={card.text}
@@ -122,7 +125,7 @@ const TrelloList = ({ title, cards, listID, index, dispatch }) => {
                       index={index}
                       listID={listID}
                     />
-                  ))}
+                  )) : null}
                   {provided.placeholder}
                   <TrelloCreate listID={listID} />
                 </div>

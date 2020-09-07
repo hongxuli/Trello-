@@ -6,7 +6,7 @@ import {  Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import Icon from "@material-ui/core/Icon";
 import { connect } from "react-redux";
-import TrelloForm from "./TrelloForm";
+import TrelloForm from "./public/TrelloForm";
 import TrelloButton from "./public/TrelloButton";
 import { editCard, deleteCard } from "../actions";
 
@@ -70,6 +70,7 @@ const TrelloCard = ( {text, id, index, listID, dispatch} ) => {
   
  }
  const handleDeleteCard = ()=>{
+   
     dispatch(deleteCard(id, listID));
  }
 
