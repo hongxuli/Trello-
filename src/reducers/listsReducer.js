@@ -113,8 +113,8 @@ const listsReducer = (state = initialState, action) => {
       let targetList = list.cards;
       const index = targetList.indexOf(cardID);
       if(index>-1){
-        const cards = targetList.splice(index,1)
-        return { ...state, [listID]:{...list, cards} };
+        targetList.splice(index,1)
+        return { ...state, [listID]: { ...list, cards: [...targetList] } };
       }else{
         return state;
       }
