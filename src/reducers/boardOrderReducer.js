@@ -2,7 +2,7 @@ import { CONSTANTS } from "../actions";
 
 
 
-const initialState = ["board-0"];
+const initialState = [];
 
 const boardOrderReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -10,11 +10,9 @@ const boardOrderReducer = (state = initialState, action) => {
       return [...state, `board-${action.payload.id}`];
     }
     case CONSTANTS.DELETE_BOARD:{
-      const id = action.payload
+      const {boardID} = action.payload
       const newState = state;
-      const index = newState.indexOf(id);
-      console.log(id);
-      
+      const index = newState.indexOf(boardID);  
       if (index > -1) {
         newState.splice(index,1);
         return [...newState]

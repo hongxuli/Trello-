@@ -70,6 +70,7 @@ const TrelloCard = ( {text, id, index, listID, dispatch} ) => {
   
  }
  const handleDeleteCard = ()=>{
+   
     dispatch(deleteCard(id, listID));
  }
 

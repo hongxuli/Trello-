@@ -17,9 +17,49 @@ export const addBoard = (title) => {
 };
 
 
-export const deleteBoard = (id) =>{
-  return {
-    type: CONSTANTS.DELETE_BOARD,
-    payload:id,
+// export const deleteLists = (listIDs) =>{
+//   return (dispatch)=>{
+
+//     listIDs.forEach(listID => {
+//         dispatch({
+//       type:CONSTANTS.DELETE_LIST,
+//       payload: listID
+//     })
+//     });
+  
+//   }
+// }
+
+export const deleteBoard = (boardID) =>{
+
+  return  (dispatch,getState) =>{
+    const boards = getState().boards // []
+    const listIDs = boards[boardID].lists; // [] list id list
+    const cardsObj = getState().cards; //{}
+    const cardsArray = Object.keys(cardsObj); //[]
+    let cardIDs = []; //cards id list
+    listIDs.forEach(listID =>{
+       cardsArray.forEach((cardID) => {
+         if (cardsObj[cardID]["list"] === listID) {
+           cardIDs.push(cardID);
+         }
+       });
+    })
+   
+    return dispatch({
+         type: CONSTANTS.DELETE_BOARD,
+         payload: { boardID, listIDs, cardIDs },
+       });
+
+    // dispatch(deleteLists(listIDs));
+
+    // dispatch({
+    //   type: CONSTANTS.DELETE_CARD,
+    //   payload: cardIDs,
+    // });
+
   }
+  
+
+
 }

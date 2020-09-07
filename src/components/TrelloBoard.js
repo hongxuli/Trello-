@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import TrelloCreate from "./TrelloCreate";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { sort, deleteBoard } from "../actions";
+import { sort, deleteBoard, setActiveBoard } from "../actions";
 import Button from './public/TrelloButton'
 import'../asset/board.scss'
 const ListsContainer = styled.div`
@@ -15,23 +15,23 @@ const ListsContainer = styled.div`
 // TODO: Fix performance issue
 
 
-class TrelloBoard extends PureComponent {
+class TrelloBoard extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = { boardID: props.match.params.boardID };
   }
 
   componentDidMount() {
-    // set active trello board here
-    console.log(this.props.match);
-    
-    const { boardID } = this.props.match.params;
-    // this.props.dispatch(setActiveBoard(boardID));
+    // set active trello board here    
+    const { boardID } = this.state; 
+    this.props.dispatch(setActiveBoard(boardID));
   }
 
   onDragEnd = (result) => {
     const { destination, source, draggableId, type } = result;
-
+    const {boardID} = this.state
+    console.log(boardID);
+    
     if (!destination) {
       return;
     }
@@ -44,7 +44,6 @@ class TrelloBoard extends PureComponent {
         destination.index,
         draggableId,
         type,
-        this.state.boardID
       )
     );
   };
@@ -60,9 +59,11 @@ class TrelloBoard extends PureComponent {
 
   render() {
     const { lists, cards, match, boards } = this.props;
-    const { boardID } = this.state;
-    console.log(boardID);
-    
+    console.log(cards);
+    console.log(lists);
+  
+  
+    const { boardID } = this.state;    
     const board = boards[boardID];
     if (!board) {
       return <p>Board not found</p>;

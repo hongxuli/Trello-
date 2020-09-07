@@ -41,21 +41,26 @@ const NewBoard = (props) => {
 const RenderBoards = () => {
       const boardOrder = useSelector((state) => state.boardOrder);
       const boards = useSelector((state) => state.boards);
-       return boardOrder.map((boardID) => {
-         const board = boards[boardID];
+      if (boards != []) {
+        return boardOrder.map((boardID) => {
+          const board = boards[boardID];
 
-         return (
-           <Grid item xs={6} sm={4} md={3} key={boardID}>
-             <Link
-               key={boardID}
-               to={`/${board.id}`}
-               style={{ textDecoration: "none" }}
-             >
-               <BoardThumbnail {...board} />
-             </Link>
-           </Grid>
-         );
-       });
+          return (
+            <Grid item xs={6} sm={4} md={3} key={boardID}>
+              <Link
+                key={boardID}
+                to={`/${board.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <BoardThumbnail {...board} />
+              </Link>
+            </Grid>
+          );
+        });
+      } else {
+        return null;
+      }
+       
      }; 
 
 

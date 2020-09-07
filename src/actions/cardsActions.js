@@ -24,9 +24,12 @@ export const editCard = (id, listID, newText) => {
   };
 };
 
-export const deleteCard = (id, listID) => {
-  return {
-    type: CONSTANTS.DELETE_CARD,
-    payload: { id, listID }
-  }
+export const deleteCard = (cardID, listID) => {
+  return (dispatch, getState)=>{
+    return dispatch({
+      type: CONSTANTS.DELETE_CARD,
+      payload: { cardID, listID },
+    })
+}
+  
 }

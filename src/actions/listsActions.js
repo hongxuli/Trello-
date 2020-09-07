@@ -22,8 +22,7 @@ export const sort = (
   boardID
 ) => {
   return (dispatch, getState) => {
-    // console.log(getState());
-    // const boardID = getState().activeBoard;
+    const boardID = getState().activeBoard;
     dispatch({
       type: CONSTANTS.DRAG_HAPPENED,
       payload: {
@@ -49,15 +48,44 @@ export const editTitle = (listID, newTitle) => {
   };
 };
 
+// export const deletCards = (cardIDs) =>{
+//    return (dispatch) => {
+//      cardIDs.forEach((cardID) => {
+//        dispatch({
+//          type: CONSTANTS.DELETE_CARD,
+//          payload: cardID,
+//        });
+//      });
+//    };
+// }
+
 export const deleteList = (listID) => {
   return (dispatch, getState) => {
     const boardID = getState().activeBoard;
+    const cardsObj = getState().cards; //{}
+    const cardsArray = Object.keys(cardsObj); //[]
+    let cardIDs = []; //cards id list
+    cardsArray.forEach((cardID) => {
+      if (cardsObj[cardID]["list"] === listID) {
+        cardIDs.push(cardID);
+      }
+    });
+
     return dispatch({
       type: CONSTANTS.DELETE_LIST,
       payload: {
         listID,
         boardID,
+        cardIDs,
       },
     });
-  };
+
+    // dipatch(deletCards(cardIDs));
+  };;;
 };
+
+export const deleteLists = () =>{
+  return (dispatch,getState)=>{
+    
+  }
+}

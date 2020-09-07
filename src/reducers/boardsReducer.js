@@ -1,13 +1,14 @@
 import { CONSTANTS } from "../actions";
 
 
-const initialState = {
-    'board-0':{
-        id: 'board-0',
-        lists:['list-0'],
-        title: 'myboard'
-    }
-}
+const initialState = []
+//  {
+    // 'board-0':{
+    //     id: 'board-0',
+    //     lists:['list-0'],
+    //     title: 'myboard'
+    // }
+// }
 const boardsReducer = (state=initialState,action) =>{
     switch (action.type) {
       case CONSTANTS.DRAG_HAPPENED: {
@@ -15,17 +16,18 @@ const boardsReducer = (state=initialState,action) =>{
           droppableIndexEnd,
           droppableIndexStart,
           type,
-          boardId,
+          boardID,
         } = action.payload;
         // test
         // const boardId = "board-0";
-        const board = state[boardId];
+        // issus .................................
+        const board = state[boardID];
         const lists = board.lists;
         if (type === "list") {
           const pulledOutList = lists.splice(droppableIndexStart, 1);
           lists.splice(droppableIndexEnd, 0, ...pulledOutList);
           board.lists = lists;
-          return { ...state, [boardId]: board };
+          return { ...state, [boardID]: board };
         }
         return state;
       }
@@ -60,10 +62,23 @@ const boardsReducer = (state=initialState,action) =>{
 
 
       case CONSTANTS.DELETE_BOARD:{
-        const id  = action.payload;
-        const newState = state;
-        delete newState[id];
-        return {...newState}
+        const {boardID} = action.payload;
+        let newState = {...state};
+        delete newState[boardID];
+        return newState
+      }
+
+      case CONSTANTS.DELETE_LIST:{
+        const {listID, boardID} = action.payload
+        let newState = {...state};
+        let targetBoard = newState[boardID]
+         const index = targetBoard.indexOf(listID);
+         if (index > -1) {
+           targetBoard.splice(index, 1);
+           return newState;
+         } else {
+           return newState;
+         }
       }
 
       default:
